@@ -144,14 +144,16 @@ ComparisonExpression
     }
 
 ComparisonOperator
-    = "と同じ" {return "==="}
+    = "と同じ" {return "=="}
+    / "と全く同じ" {return "==="}
     / "以下" {return "<="}
     / "以上" {return ">="}
+    / "未満" {return "<"}
 
 Value
-    = ArithmeticExpression
-    / Identifier
+    = Identifier
     / Literal
+    / ParenthesizedArithmeticExpression
 
 ArithmeticExpression
     = Add
@@ -160,28 +162,33 @@ ArithmeticExpression
     / Div
     / Mod
 
+ParenthesizedArithmeticExpression
+    = "（" expr:ArithmeticExpression "）" {
+        return expr;
+    }
+
 Add
-    = left:(Identifier / Literal) "に" right:Value "を足した値" {
+    = left:Value "に" right:Value "を足した値" {
         return ESTreeBuilder.createBinaryExpression("+", left, right);
     }
 
 Sub
-    = left:(Identifier / Literal) "から" right:Value "を引いた値" {
+    = left:Value "から" right:Value "を引いた値" {
         return ESTreeBuilder.createBinaryExpression("-", left, right);
     }
 
 Mul
-    = left:(Identifier / Literal) "に" right:Value "を掛けた値" {
+    = left:Value "に" right:Value "を掛けた値" {
         return ESTreeBuilder.createBinaryExpression("*", left, right);
     }
 
 Div
-    = left:(Identifier / Literal) "を" right:Value "で割った値" {
+    = left:Value "を" right:Value "で割った値" {
         return ESTreeBuilder.createBinaryExpression("/", left, right);
     }
 
 Mod
-    = left:(Identifier / Literal) "を" right:Value "で割ったあまり" {
+    = left:Value "を" right:Value "で割ったあまり" {
         return ESTreeBuilder.createBinaryExpression("%", left, right);
     }
 
