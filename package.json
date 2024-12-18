@@ -8,7 +8,7 @@
     "format": "prettier -w \"src/**/*.ts\"",
     "peg": "pegjs --plugin ./node_modules/ts-pegjs/src/tspegjs.js -o src/parser.ts src/grammar.pegjs",
     "compile": "npx ts-node ./src/main.ts",
-    "build": "run-s lint format peg compile",
+    "build": "run-s lint format peg",
     "exec": "node output.js"
   },
   "keywords": [],
