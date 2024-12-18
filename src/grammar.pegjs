@@ -139,7 +139,7 @@ UpdateExpression
     }
 
 ComparisonExpression
-    = left:Value "が" right:Value op:ComparisonOperator {
+    = left:(ArithmeticExpression / Value) "が" right:(ArithmeticExpression / Value) op:ComparisonOperator {
         return ESTreeBuilder.createBinaryExpression(op, left, right);
     }
 
@@ -220,7 +220,7 @@ ForInitToken
     = "から始まって、"
 
 ForTestToken
-    = "まで、"
+    = "の間、"
 
 ForUpdateToken
     = "をずっと続けるヨ"

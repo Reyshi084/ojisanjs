@@ -372,8 +372,8 @@ function peg$parse(input: string, options?: IParseOptions) {
   const peg$c91 = peg$literalExpectation("\u3053\u3053\u304B\u3089\u306F\u3001", false);
   const peg$c92 = "\u304B\u3089\u59CB\u307E\u3063\u3066\u3001";
   const peg$c93 = peg$literalExpectation("\u304B\u3089\u59CB\u307E\u3063\u3066\u3001", false);
-  const peg$c94 = "\u307E\u3067\u3001";
-  const peg$c95 = peg$literalExpectation("\u307E\u3067\u3001", false);
+  const peg$c94 = "\u306E\u9593\u3001";
+  const peg$c95 = peg$literalExpectation("\u306E\u9593\u3001", false);
   const peg$c96 = "\u3092\u305A\u3063\u3068\u7D9A\u3051\u308B\u30E8";
   const peg$c97 = peg$literalExpectation("\u3092\u305A\u3063\u3068\u7D9A\u3051\u308B\u30E8", false);
   const peg$c98 = "\u3053\u3053\u307E\u3067\u3060\u30E8";
@@ -2161,7 +2161,10 @@ function peg$parse(input: string, options?: IParseOptions) {
     let s0, s1, s2, s3, s4;
 
     s0 = peg$currPos;
-    s1 = peg$parseValue();
+    s1 = peg$parseArithmeticExpression();
+    if (s1 as any === peg$FAILED) {
+      s1 = peg$parseValue();
+    }
     if (s1 as any !== peg$FAILED) {
       if (input.charCodeAt(peg$currPos) === 12364) {
         s2 = peg$c36;
@@ -2171,7 +2174,10 @@ function peg$parse(input: string, options?: IParseOptions) {
         if (peg$silentFails === 0) { peg$fail(peg$c37); }
       }
       if (s2 as any !== peg$FAILED) {
-        s3 = peg$parseValue();
+        s3 = peg$parseArithmeticExpression();
+        if (s3 as any === peg$FAILED) {
+          s3 = peg$parseValue();
+        }
         if (s3 as any !== peg$FAILED) {
           s4 = peg$parseComparisonOperator();
           if (s4 as any !== peg$FAILED) {
